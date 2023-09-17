@@ -10,7 +10,7 @@ import servicemanager
 import socket
 import time
 import logging
-
+import keyboard
 logging.basicConfig(
     filename = 'c:\\Temp\\hello-service.log',
     level = logging.DEBUG, 
@@ -44,12 +44,9 @@ class HelloWorldSvc (win32serviceutil.ServiceFramework):
     def main(self):
         logging.info(' ** Hello PyWin32 World ** ')
         # Simulate a main loop
-        for i in range(0,50):
-            if self.stop_requested:
-                logging.info('A stop signal was received: Breaking main loop ...')
-                break
-            time.sleep(5)
-            logging.info("Hello at %s" % time.ctime())
+        while self.stop_requested == False:
+            if keyboard.read_key() == "p":
+                logging.info("You pressed p")
         return
 
 if __name__ == '__main__':
